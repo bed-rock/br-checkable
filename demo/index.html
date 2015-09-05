@@ -7,6 +7,7 @@
 
 	<link rel="stylesheet" href="../../bedrock/dist/css/style.css">
 
+	<link rel="import" type="html" href="../../polymer/polymer.html">
 	<script src="../../webcomponentsjs/webcomponents-lite.min.js"></script>
 	<link rel="import" href="../src/br-checkable.html">
 
@@ -23,7 +24,11 @@
 		Usage:
 		Tag: <br-checkable></br-checkable>
 		Attributes:
-
+			checkbox: Boolean,
+			radio: Boolean,
+			name: String, In case of radio group
+			required: Boolean,
+			errorMessage: String,
 		-->
 
 
