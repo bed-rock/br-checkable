@@ -1,43 +1,79 @@
 
 <dom-module id="br-checkable">
 
-  <template>
+<template>
 
-    <template is="dom-if" if="{{checkbox}}">
-      <div class="form_field  checkbox">
-        <input type="checkbox" id$="{{label}}" required$="{{required}}">
-        <label for$="{{label}}">{{label}}</label>
-        <template is="dom-if" if="{{errorMessage}}">
-          <p class="form_field--error">{{errorMessage}}</p>
-        </template>
-      </div>
-    </template>
-
-    <template is="dom-if" if="{{radio}}">
-      <div class="form_field  radio">
-        <input type="radio" id$="{{label}}" name$="{{name}}" required$="{{required}}">
-        <label for$="{{label}}">{{label}}</label>
-        <template is="dom-if" if="{{errorMessage}}">
-          <p class="form_field--error">{{errorMessage}}</p>
-        </template>
-      </div>
-    </template>
-
+  <template is="dom-if" if="{{checkbox}}">
+    <div class="form_field  checkbox">
+      <input type="checkbox" id$="{{name}}" on-click="_validateCheckbox" required$="{{required}}" checked$="{{checked}}">
+      <label for$="{{name}}">{{label}}</label>
+      <template is="dom-if" if="{{hasError}}">
+        <p class="form_field--error">{{errorMessage}}</p>
+      </template>
+    </div>
   </template>
 
-  <script>
-    Polymer({
-      is: 'br-checkable',
+  <template is="dom-if" if="{{radio}}">
+    <div class="form_field  radio">
+      <input type="radio" id$="{{label}}" name$="{{name}}" value$="{{value}}" on-click="_bindValue" checked$="{{checked}}">
+      <label for$="{{label}}">{{label}}</label>
+      <template is="dom-if" if="{{hasError}}">
+        <p class="form_field--error">{{errorMessage}}</p>
+      </template>
+    </div>
+  </template>
 
-      properties: {
-        label: String,
-        checkbox: Boolean,
-        radio: Boolean,
-        name: String, // Case radio group
-        required: Boolean,
-        errorMessage: String,
+</template>
+
+<script>
+  Polymer({
+    is: 'br-checkable',
+
+    properties: {
+      label: String,
+      checkbox: Boolean,
+      radio: Boolean,
+      name: String,
+      id: String,
+      value: {
+        type: String,
+        reflectToAttribute: true
+      },
+      checked: Boolean,
+      required: Boolean,
+      errorMessage: String,
+    },
+
+    attached: function(){
+
+      this.hasError = false;
+
+      var formField = this.$$('.form_field');
+
+      if(this.required && this.errorMessage){       
+        formField.classList.add('is-invalid');
+        this.hasError = true;
+      }else if(this.hasAttribute('is-invalid')){
+        formField.classList.remove('is-invalid');          
+        this.hasError = false;
       }
-    });
-  </script>
+    },
+
+    _validateCheckbox: function(event){
+
+      var formField = this.$$('.form_field');  
+
+      if(this.required)        
+        formField.classList.toggle('is-invalid');
+
+      this._bindValue(event);
+    },
+
+    _bindValue: function(event){
+      this.value = event.target.value;
+    }
+
+  });
+</script>
 
 </dom-module>
