@@ -3,25 +3,22 @@
 
 <template>
 
-  <template is="dom-if" if="{{checkbox}}">
-    <div class="form_field  checkbox">
-      <input type="checkbox" id$="{{name}}" on-click="_validateCheckbox" required$="{{required}}" checked$="{{checked}}">
-      <label for$="{{name}}">{{label}}</label>
-      <template is="dom-if" if="{{hasError}}">
-        <p class="form_field--error">{{errorMessage}}</p>
-      </template>
-    </div>
-  </template>
+  <div class="form_field">
 
-  <template is="dom-if" if="{{radio}}">
-    <div class="form_field  radio">
+    <template is="dom-if" if="{{checkbox}}">
+      <input type="checkbox" id$="{{name}}" on-click="_validateCheckbox" required$="{{required}}" checked$="{{checked}}">
+    </template>
+
+    <template is="dom-if" if="{{radio}}">
       <input type="radio" id$="{{label}}" name$="{{name}}" value$="{{value}}" on-click="_bindValue" checked$="{{checked}}">
-      <label for$="{{label}}">{{label}}</label>
-      <template is="dom-if" if="{{hasError}}">
-        <p class="form_field--error">{{errorMessage}}</p>
-      </template>
-    </div>
-  </template>
+    </template>
+
+    <label for$="{{name}}">{{label}}</label>
+    <template is="dom-if" if="{{hasError}}">
+      <p class="form_field--error">{{errorMessage}}</p>
+    </template>
+
+  </div>
 
 </template>
 
@@ -39,31 +36,39 @@
         type: String,
         reflectToAttribute: true
       },
+      inline: Boolean,
       checked: Boolean,
       required: Boolean,
       errorMessage: String,
     },
 
-    attached: function(){
+    ready: function () {
 
       this.hasError = false;
-
       var formField = this.$$('.form_field');
 
-      if(this.required && this.errorMessage){       
+      if ( this.checkbox )
+        formField.classList.add('checkbox');
+      if ( this.radio )
+        formField.classList.add('radio');
+      if ( this.inline )
+        formField.classList.add('inline');
+
+      if ( this.required && this.errorMessage ) {
         formField.classList.add('is-invalid');
         this.hasError = true;
-      }else if(this.hasAttribute('is-invalid')){
-        formField.classList.remove('is-invalid');          
+      }
+      else if ( this.hasAttribute('is-invalid') ) {
+        formField.classList.remove('is-invalid');
         this.hasError = false;
       }
     },
 
     _validateCheckbox: function(event){
 
-      var formField = this.$$('.form_field');  
+      var formField = this.$$('.form_field');
 
-      if(this.required)        
+      if(this.required)
         formField.classList.toggle('is-invalid');
 
       this._bindValue(event);
