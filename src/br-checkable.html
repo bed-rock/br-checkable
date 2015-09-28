@@ -6,14 +6,14 @@
   <div class="form_field">
 
     <template is="dom-if" if="{{checkbox}}">
-      <input type="checkbox" id$="{{name}}" on-click="_validateCheckbox" required$="{{required}}" checked$="{{checked}}">
+      <input type="checkbox" id$="{{id}}" on-click="_validateCheckbox" required$="{{required}}" checked$="{{checked}}">
     </template>
 
     <template is="dom-if" if="{{radio}}">
-      <input type="radio" id$="{{label}}" name$="{{name}}" value$="{{value}}" on-click="_bindValue" checked$="{{checked}}">
+      <input type="radio" id$="{{id}}" name$="{{name}}" value$="{{value}}" on-click="_bindValue" checked$="{{checked}}">
     </template>
 
-    <label for$="{{name}}">{{label}}</label>
+    <label for$="{{id}}">{{label}}</label>
     <template is="dom-if" if="{{hasError}}">
       <p class="form_field--error">{{errorMessage}}</p>
     </template>
