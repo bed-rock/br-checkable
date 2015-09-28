@@ -24,25 +24,24 @@
 		Usage:
 		Tag: <br-checkable></br-checkable>
 		Attributes:
-			checkbox: Boolean,
-			radio: Boolean,
-			name: String, In case of radio group
-			required: Boolean,
-			errorMessage: String,
+			checkbox: Boolean;
+			radio: Boolean;
+			br-id: String;
+			br-name: String, In case of radio group;
+			label: String;
+			required: Boolean;
+			errorMessage: String;
 		-->
 
+		<h2>Single checkbox</h2>
+		<br-checkable checkbox br-id="check01" label="Checkbox test" error-message="Esse campo é obrigatório" required></br-checkable>
 
-		<br-checkable name="check01" checkbox label="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum." error-message="Esse campo é obrigatório" required></br-checkable>
+		<h2>Single radio</h2>
+		<br-checkable radio br-id="radio01" required label="Radio test"></br-checkable>
 
-<!-- 		<br-checkable name="single" radio required label="Radio test"></br-checkable>
-
-		<br-checkable radio label="Radio group test 01" name="group"></br-checkable>
-		<br-checkable radio label="Radio group test 02" name="group"></br-checkable> -->
+		<h2>Radio group</h2>
+		<br-checkable radio br-id="radioGroup01" br-name="group" label="Radio group test 01" inline></br-checkable>
+		<br-checkable radio br-id="radioGroup02" br-name="group" label="Radio group test 02" inline></br-checkable>
 
 	</div>
 
