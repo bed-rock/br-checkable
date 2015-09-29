@@ -10,7 +10,7 @@
     </template>
 
     <template is="dom-if" if="{{radio}}">
-      <input type="radio" id$="{{brId}}" name$="{{brName}}" value$="{{model}}" on-click="_bindValue" checked$="{{checked}}">
+      <input type="radio" id$="{{brId}}" name$="{{brName}}" value$="{{model}}" on-click="_bindRadioValue" checked$="{{checked}}">
     </template>
 
     <label for$="{{brId}}">{{label}}</label>
@@ -71,10 +71,10 @@
       if(this.required)
         formField.classList.toggle('is-invalid');
 
-      this._bindValue(event);
+      this.model = event.target.checked.toString();
     },
 
-    _bindValue: function(event){
+    _bindRadioValue: function(event){
       this.model = event.target.value;
     }
 
