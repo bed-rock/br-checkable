@@ -10,7 +10,7 @@
     </template>
 
     <template is="dom-if" if="{{radio}}">
-      <input type="radio" id$="{{brId}}" name$="{{brName}}" value$="{{model}}" on-click="_bindRadioValue" checked$="{{checked}}">
+      <input type="radio" id$="{{brId}}" name$="{{brName}}" value$="{{brValue}}" on-click="_bindRadioValue" checked$="{{checked}}">
     </template>
 
     <label for$="{{brId}}">{{label}}</label>
@@ -32,6 +32,7 @@
       radio: Boolean,
       brName: String,
       brId: String,
+      brValue: String,
       model: {
         type: String,
         reflectToAttribute: true
